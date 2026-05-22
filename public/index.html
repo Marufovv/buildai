@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>BuildAI Premium</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="registerPage" class="register">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="registerCard animUp">
+    <div class="logoMark">B<span>AI</span></div>
+    <h1>Build<span>AI</span></h1>
+    <p>Uy qurish jarayonini AI yordamida rejalashtiruvchi premium platforma.</p>
+    <label>Ismingiz</label><input id="regName" placeholder="Ismingiz">
+    <label>Telefon raqam</label><input id="regPhone" placeholder="+998 90 123 45 67">
+    <label>Shahar</label><select id="regCity"><option>Toshkent</option><option>Farg‘ona</option><option>Samarqand</option><option>Buxoro</option><option>Andijon</option><option>Qo‘qon</option></select>
+    <label>Rolingiz</label><select id="regRole"><option value="customer">Uy quruvchi foydalanuvchi</option><option value="provider">Usta / sotuvchi / ijara beruvchi</option></select>
+    <button onclick="registerUser()" class="btn full">Platformaga kirish</button>
+  </div>
+</section>
+
+<div id="app" class="hidden">
+<nav class="nav">
+  <div class="brand"><div class="logoMark small">B<span>AI</span></div><b>Build<span>AI</span></b></div>
+  <div class="navRight"><span id="userMini"></span><button onclick="logout()" class="miniBtn">Chiqish</button></div>
+</nav>
+
+<main>
+<section id="page-home" class="page active">
+  <div class="hero">
+    <div class="heroText animLeft">
+      <span class="badge">Premium AI Construction Ecosystem</span>
+      <h1>Uy qurishni <span>AI</span> bilan oldindan ko‘ring</h1>
+      <p>BuildAI insonlarga uy qurishdan oldin loyiha, material, texnika, budjet, ishchi soni va muddatni taxmin qilishga yordam beradi. Tadbirkorlar esa o‘z materiallari va xizmatlarini mijozlarga chiqaradi.</p>
+      <div class="roleSwitch">
+        <button id="customerMode" class="modeBtn active" onclick="setRoleMode('customer')">Uy quruvchi</button>
+        <button id="providerMode" class="modeBtn" onclick="setRoleMode('provider')">E’lon beruvchi</button>
+      </div>
+    </div>
+    <div class="heroVisual animRight">
+      <div class="houseCard">
+        <div class="roof"></div><div class="homeBox"><div></div><div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="moduleTitle animUp">
+    <h2>Kerakli bo‘limni tanlang</h2>
+    <p id="moduleSubtitle">AI hisob-kitob, materiallar, texnika va yakuniy xulosa.</p>
+  </div>
+  <div class="modules" id="customerModules">
+    <button onclick="openPage('planner')" class="module animUp"><span>01</span><b>AI Planner</b><small>Uy hajmi, qavat va budjet bo‘yicha smeta</small></button>
+    <button onclick="openPage('market')" class="module animUp delay1"><span>02</span><b>Material bozori</b><small>Narx, ombor va mos sotuvchilar</small></button>
+    <button onclick="openPage('equipment')" class="module animUp delay2"><span>03</span><b>Texnika ijara</b><small>Ekskavator, mixer, yuk mashina va asboblar</small></button>
+    <button onclick="openPage('ai3d')" class="module animUp delay3"><span>04</span><b>3D konsept</b><small>Joy rasmi asosida uy ko‘rinishi</small></button>
+    <button onclick="openPage('result')" class="module animUp delay4"><span>05</span><b>AI xulosa</b><small>Bosqichlar, muddat va tavsiyalar</small></button>
+  </div>
+  <div class="modules hidden" id="providerModules">
+    <button onclick="openPage('provider')" class="module animUp"><span>01</span><b>E’lon qo‘shish</b><small>Material, usta xizmati yoki texnika ijarasi</small></button>
+    <button onclick="openPage('market')" class="module animUp delay1"><span>02</span><b>Market ko‘rinishi</b><small>Mijozlar sizni qanday ko‘rishini tekshirish</small></button>
+    <button onclick="openPage('equipment')" class="module animUp delay2"><span>03</span><b>Texnika ro‘yxati</b><small>Ijara uskunalarini nazorat qilish</small></button>
+    <button onclick="openPage('result')" class="module animUp delay3"><span>04</span><b>AI moslik</b><small>Qaysi loyiha uchun mosligingiz</small></button>
+  </div>
+</section>
+
+<section id="page-planner" class="page">
+  <button class="back" onclick="openPage('home')">← Asosiy sahifa</button>
+  <div class="pageHead"><span class="badge">Planner</span><h2>AI Planner</h2><p>Uy ma’lumotlarini kiriting. Platforma material, uskunalar, budjet, ishchi soni va muddatni predict qiladi.</p></div>
+  <div class="layout">
+    <div class="glass">
+      <label>AI ga yozing</label><textarea id="prompt">Menga 150 kv metr, 2 qavatli, 5 xonali modern uy qurmoqchiman. Katta oshxona, garaj, mustahkam poydevor va arzonroq material variantlari kerak.</textarea>
+      <input id="area" type="hidden" value="150">
+      <input id="rooms" type="hidden" value="5">
+      <input id="floors" type="hidden" value="2">
+      <input id="style" type="hidden" value="Modern">
+      <input id="wallType" type="hidden" value="brick">
+      <input id="roofType" type="hidden" value="metal">
+      <div class="grid2"><div><label>Qavat</label><select id="pFloors" onchange="setPlannerParam('floors', this.value)"><option>1</option><option selected>2</option><option>3</option></select></div><div><label>Qavat balandligi m</label><input id="pHeight" type="number" min="2.6" max="4.2" step="0.1" value="3" onchange="setPlannerParam('floorHeight', this.value)"></div></div>
+      <div class="grid2"><div><label>Budjet mln so‘m</label><input id="budget" type="number" value="550"></div><div><label>Seysmik zona</label><select id="seismicZone"><option value="7">7 ball</option><option selected value="8">8 ball</option><option value="9">9 ball</option></select></div></div>
+      <label>Uslub</label><select id="pStyle" onchange="setPlannerParam('style', this.value)"><option>Modern</option><option>Minimal</option><option>Classic</option><option>Milliy</option></select>
+      <div class="grid2"><div><label>Devor materiali</label><select id="pWall" onchange="setPlannerParam('wallType', this.value)"><option value="brick">Pishiq g‘isht</option><option value="gazoblock">Gazoblok</option><option value="monolith">Monolit karkas</option></select></div><div><label>Poydevor</label><select id="foundationType"><option value="strip">Lentasimon</option><option value="slab">Plita</option><option value="pile">Qoziqli</option></select></div></div>
+      <label>Tom turi</label><select id="pRoof" onchange="setPlannerParam('roofType', this.value)"><option value="metal">Metallocherepitsa</option><option value="soft">Yumshoq tom</option><option value="flat">Yassi tom</option></select>
+      <div class="plannerActions">
+        <button type="button" onclick="addRoom()" class="btn ghost">Xona qo‘shish</button>
+        <button type="button" onclick="renameSelected()" class="btn ghost">Nomini o‘zgartirish</button>
+        <button type="button" onclick="resetPlanner()" class="btn ghost">Reset</button>
+      </div>
+      <button onclick="createPlan()" class="btn full">AI predict qilish</button>
+      <button onclick="openModelFromPlanner()" class="btn ghost full">2D rejadan 3D model ochish</button>
+    </div>
+    <div class="glass">
+      <h3>2D planner</h3>
+      <div class="plannerMeta"><span id="plannerArea">0 m²</span><span id="plannerRoomCount">0 xona</span><span id="plannerStatus">0.25 m snap</span></div>
+      <canvas id="plannerCanvas"></canvas>
+      <div id="roomList" class="roomList"></div>
+      <h3 class="mt">AI chizma preview</h3>
+      <svg id="floorPlan" viewBox="0 0 560 340"></svg>
+    </div>
+  </div>
+</section>
+
+<section id="page-market" class="page">
+  <button class="back" onclick="openPage('home')">← Asosiy sahifa</button>
+  <div class="pageHead"><span class="badge">Market</span><h2>Materiallar va sotuvchilar</h2></div>
+  <div class="kpis"><div><b id="totalCost">0</b><small>Umumiy budjet</small></div><div><b id="materialCost">0</b><small>Material</small></div><div><b id="workersCount">0</b><small>Ishchilar</small></div><div><b id="duration">0</b><small>Muddat</small></div></div>
+  <div class="tableBox"><table><thead><tr><th>Material</th><th>Turi</th><th>Miqdor</th><th>Jami</th><th>Sotuvchi</th><th>Status</th></tr></thead><tbody id="materialsBody"></tbody></table></div>
+  <div class="cards" id="supplierCards"></div>
+  <div class="glass mt"><h3>E’lon beruvchilardan material takliflari</h3><div class="cards oneCol" id="marketListings"></div></div>
+</section>
+
+<section id="page-equipment" class="page">
+  <button class="back" onclick="openPage('home')">← Asosiy sahifa</button>
+  <div class="pageHead"><span class="badge">Texnikalar</span><h2>Qurilish texnikalari va asbob-uskunalar</h2><p>Kerakli texnika va asboblar loyiha hajmiga qarab chiqadi.</p></div>
+  <div class="cards" id="toolsCards"></div>
+  <div class="glass mt"><h3>E’lon beruvchilardan texnika va usta takliflari</h3><div class="cards oneCol" id="equipmentListings"></div></div>
+</section>
+
+<section id="page-provider" class="page">
+  <button class="back" onclick="openPage('home')">← Asosiy sahifa</button>
+  <div class="pageHead"><span class="badge">E’lon beruvchi</span><h2>Material, usta yoki texnika e’loni</h2><p>Bu bo‘lim sotuvchi, ishlab chiqaruvchi, usta va ijara beruvchilar uchun. E’lonlar backend orqali qabul qilinadi.</p></div>
+  <div class="layout">
+    <div class="glass">
+      <label>Biznes nomi</label><input id="listingBusiness" placeholder="Masalan: Toshkent Beton Servis">
+      <div class="grid2"><div><label>Tur</label><select id="listingType"><option value="material">Material sotuvchi</option><option value="equipment">Texnika ijara</option><option value="service">Usta / brigada</option></select></div><div><label>Mahsulot yoki xizmat</label><input id="listingTitle" placeholder="M400 sement, ekskavator, suvoqchi"></div></div>
+      <div class="grid2"><div><label>Narx</label><input id="listingPrice" type="number" value="68000"></div><div><label>Birlik</label><input id="listingUnit" placeholder="qop / kun / m²" value="qop"></div></div>
+      <div class="grid2"><div><label>Ombor / quvvat</label><input id="listingStock" type="number" value="1000"></div><div><label>Telefon</label><input id="listingPhone" placeholder="+998 90 123 45 67"></div></div>
+      <label>Izoh</label><textarea id="listingNote" placeholder="Yetkazib berish, kafolat, hudud yoki ish tajribasi"></textarea>
+      <button onclick="createListing()" class="btn full">E’lonni joylash</button>
+    </div>
+    <div class="glass">
+      <h3>Yangi e’lonlar</h3>
+      <div id="listingStatus" class="aiText">Hali e’lon qo‘shilmagan.</div>
+      <div class="cards oneCol" id="listingCards"></div>
+    </div>
+  </div>
+</section>
+
+<section id="page-ai3d" class="page">
+  <button class="back" onclick="openPage('home')">← Asosiy sahifa</button>
+  <div class="pageHead"><span class="badge">3D AI</span><h2>2D rejadan 3D model va fotoreal render</h2><p>Plannerdagi xonalar asosida brauzerda 3D model quriladi. API key ulangandan keyin fotoreal rasm generatsiya ishlaydi.</p></div>
+  <div class="layout">
+    <div class="glass">
+      <h3>Interactive 3D model</h3>
+      <div id="viewer3d" class="viewer3d">3D model shu yerda chiqadi</div>
+      <button onclick="openModelFromPlanner()" class="btn full">Plannerdan modelni yangilash</button>
+    </div>
+    <div class="glass"><label>Yer rasmi</label><input id="siteImage" type="file" accept="image/*"><button onclick="generate3D()" class="btn full">Fotoreal 3D rasm generatsiya qilish</button></div>
+    <div class="glass"><h3>3D AI natija</h3><div id="imageResult" class="imageResult">Rasm shu yerda chiqadi</div></div>
+  </div>
+</section>
+
+<section id="page-result" class="page">
+  <button class="back" onclick="openPage('home')">← Asosiy sahifa</button>
+  <div class="pageHead"><span class="badge">Natija</span><h2>Yakuniy AI xulosa</h2></div>
+  <div class="kpis"><div><b id="rTotal">0</b><small>Jami smeta</small></div><div><b id="rDuration">0</b><small>Muddat</small></div><div><b id="rWorkers">0</b><small>Ishchilar</small></div><div><b id="rArea">0</b><small>Umumiy maydon</small></div></div>
+  <div class="glass"><div id="aiText" class="aiText">Planner sahifasida “AI predict qilish” tugmasini bosing.</div></div>
+  <div class="layout mt">
+    <div class="glass"><h3>Xarajatlar</h3><div id="costBreakdown" class="miniList"></div></div>
+    <div class="glass"><h3>Kerakli resurslar</h3><div id="needsList" class="miniList"></div></div>
+  </div>
+  <div class="glass mt"><h3>Ustalar va brigada</h3><div class="cards" id="mastersCards"></div></div>
+  <div class="glass mt"><h3>Qurilish bosqichlari</h3><div id="stages"></div></div>
+</section>
+</main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="planner3d.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
