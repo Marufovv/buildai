@@ -1,56 +1,17 @@
-<<<<<<< HEAD
-# BuildAI / Hackathon Project
-
-VS Code va GitHub uchun tozalangan loyiha strukturasi.
-
-## Struktura
-
-```text
-hackathonfr_vscode_github/
-├── public/
-│   ├── index.html
-│   ├── style.css
-│   ├── app.js
-│   └── planner3d.js
-├── data/
-│   ├── constructionKnowledge.js
-│   └── listings.json
-├── scripts/
-│   └── audit_knowledge_pdfs.py
-├── .vscode/
-│   └── launch.json
-├── .env.example
-├── .gitignore
-├── package.json
-├── package-lock.json
-├── requirements-knowledge.txt
-├── server.js
-└── README.md
-```
-
-## VS Code’da ishga tushirish
-
-=======
 # BuildAI Full Demo + Gemini API
-
 ## Ishga tushirish
->>>>>>> 2fcf1d1f31468200e5f1ec97e8d0efc9ab3f6725
 ```bash
 npm install
 npm run dev
 ```
-
-<<<<<<< HEAD
 Brauzerda oching:
-
-=======
 Brauzer:
 >>>>>>> 2fcf1d1f31468200e5f1ec97e8d0efc9ab3f6725
 ```text
 http://localhost:5000
 ```
 
-<<<<<<< HEAD
+
 ## API sozlash
 
 `.env.example` faylidan nusxa oling va `.env` deb nomlang:
